@@ -1,0 +1,14 @@
+Combat,Goblin,10,70,30,3
+Combat,Orc,20,60,50,6
+Combat,Skeleton,15,80,40,4
+Treasure,Health Potion,20,0,0,0,0
+Treasure,Warrior's Axe,0,8,0,0,0
+Treasure,Mage's Staff,0,0,10,0,0
+Treasure,Rogue's Dagger,0,5,5,0,0
+Treasure,Amulet of Luck,0,0,0,5,0
+Treasure,Boots of Swiftness,0,0,0,0,8
+Treasure,Ring of Strength,0,12,0,0,0
+Treasure,Scroll of Wisdom,0,0,15,0,0
+Treasure,Shield of Defense,0,0,0,3,0
+Treasure,Cloak of Shadows,0,3,0,2,10
+Nothing,,,,
