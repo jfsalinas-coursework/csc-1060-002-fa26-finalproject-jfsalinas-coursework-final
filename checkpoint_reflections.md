@@ -13,3 +13,16 @@ When orginally creating this, the UML and story boarding laid a good foundation 
 
 2. What design decisions or changes did you make?
 I really wanted to add ASCII art to this project to give it a little more something, i ended up deciding on adding it to the project. I created a new ArtLoader.cpp and ArtLoader.h files. Alongt with an Art folder that holds the are inside a text file.
+
+
+---
+
+## checkpoint-02: class declaration
+
+1. What challenges did you encounter?
+    had multiple issues of fatfingering certain key words, or having case mismatches. 
+    Keeping track with comments to insure nothing is lost, it will help in the long run but thinking ahead before hand was a little off me
+
+2. What design decisions or changes did you make?
+    adding in artLoader functions took some googling to be able to add it
+    

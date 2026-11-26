@@ -12,7 +12,7 @@
 class Player;
 
 class Event {
-protected:
+private:  
    std::string type; // determines if the event is combat, treasure, or empty
    std::string name; // grabs the enemy type and the item in the chest
    
