@@ -52,3 +52,16 @@ didnt give myslef time to add menu
 everything was working as intended
 
 2. What design decisions or changes did you make?
+
+
+---
+
+## checkpoint-06: file io / data persistence
+
+1. What challenges did you encounter?
+
+I didnt have a load and save function, 
+all data files already had final data in them.
+
+2. What design decisions or changes did you make?
+none
