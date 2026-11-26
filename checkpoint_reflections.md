@@ -65,3 +65,18 @@ all data files already had final data in them.
 
 2. What design decisions or changes did you make?
 none
+
+## checkpoint-07: final testing and program completion, verification, and submission
+
+1. What were the most significant challenges you encountered, and how did you resolve them?
+Generating the dungeon, i ended up looking youtube tutorials. Most prroblems i encountered i ended up watching youtube videos and saved them to a playlist for the ones that worked
+2. What were the most significant design decisions or changes did you make throughout development?
+decding to add ascii art to the game.
+3. What did you learn about developing a C++ program incrementally?
+I need alot more planning in the design phase, not waiting till the last second to submit
+4. Are there any known issues, limitations, or incomplete features?
+Not having an infiinte number of dungeon seeds. its 1-100 for now but I dont know the max
+5. How does your completed program compare with your original program summary and design?
+The orginal game was a choose your own adventure so it changed alot. But it still had the same orginal idea. of making choices and still trying to reach teh end. But can be played multiple times
+
+---
