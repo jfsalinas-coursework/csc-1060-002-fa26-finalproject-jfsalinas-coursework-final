@@ -12,7 +12,6 @@
 class Enemy {
 private:
     std::string name;
-    std::string className;
     int hp;
     int maxHp;
     int attackStrength;
@@ -28,7 +27,7 @@ public:
 
     int rollDamage() const; // used to chose random dmg from min to attackstrength
     int getHp() const {return hp; }
-    int getMaxHp() const {return MaxHp; }
+    int getMaxHp() const {return maxHp; }
     int getAccuracy() const {return accuracy; }
 
 };

@@ -33,6 +33,8 @@ I really wanted to add ASCII art to this project to give it a little more someth
 
 1. What challenges did you encounter?
 I had to google on how to change from text to a nymber, This lead me to discovering atoi. i then youtubed its uses and implemented it into my code
-
+1 miss typed file caused a huge headache
 
 2. What design decisions or changes did you make?
+No major changes were made
+

@@ -12,9 +12,10 @@
 class Player;
 
 class Event {
-private:  
+protected:  // this had to be in protected
    std::string type; // determines if the event is combat, treasure, or empty
    std::string name; // grabs the enemy type and the item in the chest
+   bool finished;
    
 
 public:
@@ -26,7 +27,7 @@ public:
    bool isFinished() const { return finished; }
 };
 
-class EmptyEvent() : public Event { // Empty room
+class EmptyEvent : public Event { // Empty room
 public:
 EmptyEvent ();
 bool process(Player& player ) override; // used to say room is empty

@@ -9,7 +9,7 @@
 // reads the art file from art folder and returns the txt(ASCII art) 
 
 std::string ArtLoader::loadFromFile (const std::string& filename) {
-    std::ifstream file("art/" + filename):
+    std::ifstream file("art/" + filename);
     if (file.is_open()) {
     std::cerr << "Warning: Could not open file: " << filename << std::endl;
     return "[Art file not found]\n";
@@ -27,10 +27,10 @@ std::string ArtLoader::loadFromFile (const std::string& filename) {
 // Determines the art to use
 std::string ArtLoader::getArtFileName( const std::string& eventType, const std::string& name) { // grabbing the art
 
-    if (eventType = "Combat") { 
+    if (eventType == "Combat") { 
         if (name == "Boss") return "EnteringRoomHasDemon.txt";
         } // grabs boss art
-            return "EnteringRoomHas" + name ".txt"; // setting the txt for other enemies
+            return "EnteringRoomHas" + name + ".txt"; // setting the txt for other enemies
         if (eventType == "Treasure") {
             return "EnteringRoomHasTreasure.txt";
         }

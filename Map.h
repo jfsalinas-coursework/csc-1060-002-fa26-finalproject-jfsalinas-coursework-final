@@ -25,13 +25,15 @@ private:
     int previousRow;  // where the player came from (used when running away)
     int previousCol;
 
+    std::vector<std::vector<std::vector<Room*>>> grid; 
+
     std::vector<std::vector<std::string>> eventTable; // lines of setEvents.csv
     std::vector<std::string> bossRow;                 // Boss stats from setEnmies.csv
 
     void generateFloor ( int floor, int startRow, int startCol, int stairsRow, int stairsCol);
     Event* createEvent(const std::vector<std::string>& row);
     Event* createRandomEvent();
-    bool moveTo( int newRowm int newCol);
+    bool moveTo( int newRowm, int newCol);
 
 public:
     Map();  // builds all floors

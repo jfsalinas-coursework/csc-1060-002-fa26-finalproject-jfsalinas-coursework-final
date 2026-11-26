@@ -32,7 +32,7 @@ public:
     int getAttackStrength() const { return attackStrength; }
     int getAttackAccuracy() const { return attackAccuracy; }
     int getLuck() const { return luck; }
-    int getEvasion() const { return evasion }
+    int getEvasion() const { return evasion; }
 
     // Actions applied to player
 

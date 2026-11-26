@@ -25,7 +25,7 @@ Map::Map()
             std::cerr << "Warning: skipping bad line in setEvents.csv for " << row[0] << "\n"; 
         }
         else {
-            eventTable.push_back(row):
+            eventTable.push_back(row);
         }
     }
 
