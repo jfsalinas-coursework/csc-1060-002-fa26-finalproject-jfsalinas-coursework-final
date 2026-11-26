@@ -8,32 +8,30 @@
 
 // reads the art file from art folder and returns the txt(ASCII art) 
 
-std::string ArtLoader::loadFromFile (const std::string& filename) {
+std::string ArtLoader::loadFromFile(const std::string& filename) {
     std::ifstream file("art/" + filename);
-    if (file.is_open()) {
-    std::cerr << "Warning: Could not open file: " << filename << std::endl;
-    return "[Art file not found]\n";
+    if (!file.is_open()) {
+        std::cerr << "Warning: Could not open art file: art/" << filename << std::endl;
+        return "[Art file not found]\n";
     }
-
     std::string content;
     std::string line;
-    while (std::getline(file, line )){
+    while (std::getline(file, line)) {
         content += line + "\n";
-    } 
+    }
     return content;
 }
 
 
 // Determines the art to use
-std::string ArtLoader::getArtFileName( const std::string& eventType, const std::string& name) { // grabbing the art
-
-    if (eventType == "Combat") { 
-        if (name == "Boss") return "EnteringRoomHasDemon.txt";
-        } // grabs boss art
-            return "EnteringRoomHas" + name + ".txt"; // setting the txt for other enemies
-        if (eventType == "Treasure") {
-            return "EnteringRoomHasTreasure.txt";
-        }
+std::string ArtLoader::getArtFileName(const std::string& eventType, const std::string& name) {
+    if (eventType == "Combat") {
+        if (name == "Boss") return "EnteringRoomHasDemon.txt"; // the Boss is drawn as a Demon
+        return "EnteringRoomHas" + name + ".txt";              // e.g. EnteringRoomHasGoblin.txt
+    }
+    if (eventType == "Treasure") {
+        return "EnteringRoomHasTreasure.txt";
+    }
     return "EnteringRoomHasNothing.txt";
 }
 

@@ -38,3 +38,11 @@ I had to google on how to change from text to a nymber, This lead me to discover
 2. What design decisions or changes did you make?
 No major changes were made
 
+## checkpoint-04: program structure integration and input validation
+
+1. What challenges did you encounter?
+misname file caused art not to load for awhile
+
+2. What design decisions or changes did you make?
+didnt give myslef time to add menu
+

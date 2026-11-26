@@ -163,19 +163,28 @@ bool testTreasureChest() {
 }
 
 // ---------- ArtLoader.cpp ----------
+// ---------- ArtLoader.cpp ----------
 bool testArtLoader() {
     bool ok = true;
+    std::cout << "\n--- ArtLoader debug ---\n";
+    std::cout << "Goblin   -> [" << ArtLoader::getArtFileName("Combat", "Goblin") << "]\n";
+    std::cout << "Boss     -> [" << ArtLoader::getArtFileName("Combat", "Boss") << "]\n";
+    std::cout << "Treasure -> [" << ArtLoader::getArtFileName("Treasure", "Health Potion") << "]\n";
+    std::cout << "Empty    -> [" << ArtLoader::getArtFileName("Empty", "") << "]\n";
+    std::cout << "Goblin art has " << ArtLoader::loadFromFile("EnteringRoomHasGoblin.txt").size()
+              << " characters\n";
+
     check(ok, ArtLoader::getArtFileName("Combat", "Goblin") == "EnteringRoomHasGoblin.txt");
     check(ok, ArtLoader::getArtFileName("Combat", "Boss") == "EnteringRoomHasDemon.txt");
     check(ok, ArtLoader::getArtFileName("Treasure", "Health Potion") == "EnteringRoomHasTreasure.txt");
     check(ok, ArtLoader::getArtFileName("Empty", "") == "EnteringRoomHasNothing.txt");
-    check(ok, ArtLoader::loadFromFile("EnteringRoomHasGoblin.txt") != "[Art file not found]\n");
+     std::string goblinArt = ArtLoader::loadFromFile("EnteringRoomHasGoblin.txt");
+    check(ok, goblinArt != "[Art file not found]\n" && !goblinArt.empty()); // found AND has art in it
 
     Room room;
     ArtLoader::showRoomArt(room);
     return ok;
 }
-
 // ---------- Map.cpp ----------
 bool testMap() {
     bool ok = true;
