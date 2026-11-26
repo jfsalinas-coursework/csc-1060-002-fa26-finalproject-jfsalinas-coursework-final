@@ -79,4 +79,4 @@ Not having an infiinte number of dungeon seeds. its 1-100 for now but I dont kno
 5. How does your completed program compare with your original program summary and design?
 The orginal game was a choose your own adventure so it changed alot. But it still had the same orginal idea. of making choices and still trying to reach teh end. But can be played multiple times
 
----
+i amm atteempoting to submit
