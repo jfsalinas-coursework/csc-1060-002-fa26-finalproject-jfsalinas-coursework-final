@@ -12,8 +12,13 @@
 
 
 class CombatEvent : public Event {
+private:
+    Enemy enemy; 
 
+public:
 
+    CombatEvent(std::string enemyName, int atk, int acc, int hp, int minDmg); // same order as setevents.csv 
+    bool process ( Player& player ) override; // player fights until outcome or run away
 
 };
 

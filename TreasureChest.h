@@ -12,9 +12,17 @@
 
 
 
-class TreasureChest {
+class TreasureChest : public Event {
+private:
+    Item item;
+    bool locked;
+    int attemptsToUnlock; // how many tries before the lock breaks
 
 
+public:
+    TreasureChest (Item chestItem );
+    bool process( Player& player) override; // ask if player wants to open chest
+    bool attemptUnlock ( int playerLuck);  // the attempt to open chest
 
 };
 
