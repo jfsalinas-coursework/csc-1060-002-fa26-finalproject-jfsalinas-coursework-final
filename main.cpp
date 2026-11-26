@@ -1,11 +1,225 @@
+// Name: Jaden Salinas
+// Summary: Unit tests. Each test function calls the constructors and member
+//  functions from one .cpp file. The results show [PASS] or [FAIL]
+
+
 #include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+#include "Player.h"
+#include "Event.h"
+#include "Enemy.h"
+#include "Items.h"
+#include "Room.h"
+#include "Combat.h"
+#include "TreasureChest.h"
+#include "ArtLoader.h"
+#include "Map.h"
 
-int main(){
+// Sets ok to false if a check did not pass
+void check(bool& ok, bool passed) {
+    if (!passed) ok = false;
+}
 
-std::cout << "Hello World";
+// Prints [PASS] or [FAIL] next to the file that was tested
+void report(const std::string& fileName, bool ok) {
+    if (ok) std::cout << "[PASS] " << fileName << "\n";
+    else    std::cout << "[FAIL] " << fileName << "\n";
+}
 
+// ---------- Player.cpp ----------
+bool testPlayer() {
+    bool ok = true;
+    Player player("Tester");
+    check(ok, player.getName() == "Tester");
+    check(ok, player.loadClass("Fighter"));
+    check(ok, !player.loadClass("Wizard"));
+    check(ok, player.getHp() == 120 && player.getMaxHp() == 120);
 
-return 0;
+    player.takeDamage(30);
+    check(ok, player.getHp() == 90);
+    player.heal(500);
+    check(ok, player.getHp() == 120); // never above max HP
 
+    player.addStats(5, 50, 3, 100);
+    check(ok, player.getAttackStrength() == 20);
+    check(ok, player.getAttackAccuracy() == 100); // capped at 100
+    check(ok, player.getLuck() == 8);
+    check(ok, player.getEvasion() == 50);         // capped at 50
 
+    player.takeDamage(1000);
+    check(ok, player.getHp() == 0 && !player.isAlive());
+
+    player.displayStats();
+    return ok;
+}
+
+// ---------- Enemy.cpp ----------
+bool testEnemy() {
+    bool ok = true;
+    Enemy goblin("Goblin", 10, 70, 30, 3);
+    check(ok, goblin.getHp() == 30 && goblin.getMaxHp() == 30);
+    check(ok, goblin.getAccuracy() == 70);
+
+    for (int i = 0; i < 1000; i++) {
+        int damage = goblin.rollDamage();
+        check(ok, damage >= 3 && damage <= 10);
+    }
+
+    goblin.takeDamage(100);
+    check(ok, goblin.getHp() == 0 && !goblin.isAlive());
+    return ok;
+}
+
+// ---------- Items.cpp ----------
+bool testItems() {
+    bool ok = true;
+    Player player("Tester");
+    player.loadClass("Fighter");
+    player.takeDamage(50); // 70/120
+
+    Item potion("Health Potion", 20, 0, 0, 0, 0);
+    check(ok, potion.getName() == "Health Potion");
+    potion.applyToPlayer(player);
+    check(ok, player.getHp() == 90);
+
+    Item axe("Warrior's Axe", 0, 8, 0, 0, 0);
+    axe.applyToPlayer(player);
+    check(ok, player.getAttackStrength() == 23);
+    return ok;
+}
+
+// ---------- Event.cpp ----------
+bool testEvent() {
+    bool ok = true;
+    Player player("Tester");
+
+    EmptyEvent empty;
+    check(ok, empty.getType() == "Empty" && empty.getName() == "");
+    check(ok, !empty.isFinished());
+    check(ok, empty.process(player));
+
+    std::vector<std::vector<std::string>> rows = readCsvFile("data/cStats.csv");
+    check(ok, rows.size() == 3 && rows[0][0] == "Fighter");
+
+    char letter = getChoice("Type W and press Enter: ");
+    check(ok, letter == 'w');
+    return ok;
+}
+
+// ---------- Room.cpp ----------
+bool testRoom() {
+    bool ok = true;
+    Room room;
+    check(ok, room.getEvent()->getType() == "Empty");
+    check(ok, !room.isVisited() && !room.hasStairs());
+
+    room.setVisited(true);
+    room.setStairs(true);
+    check(ok, room.isVisited() && room.hasStairs());
+
+    room.setEvent(new CombatEvent("Orc", 20, 60, 50, 6));
+    check(ok, room.getEvent()->getType() == "Combat");
+    return ok;
+}
+
+// ---------- Combat.cpp ----------
+bool testCombat() {
+    bool ok = true;
+    Player player("Tester");
+    player.loadClass("Fighter");
+
+    CombatEvent ratFight("Rat", 1, 0, 1, 1); // 1 HP, 0% accuracy: can't hurt you
+    check(ok, ratFight.getType() == "Combat" && ratFight.getName() == "Rat");
+    check(ok, !ratFight.isFinished());
+
+    std::cout << "Keep typing a to attack until the rat is dead.\n";
+    check(ok, ratFight.process(player));
+    check(ok, ratFight.isFinished());
+    return ok;
+}
+
+// ---------- TreasureChest.cpp ----------
+bool testTreasureChest() {
+    bool ok = true;
+    Player player("Tester");
+    player.loadClass("Rogue");
+    player.addStats(0, 0, 40, 0); // 60% + 55 luck = always opens
+
+    Item axe("Warrior's Axe", 0, 8, 0, 0, 0);
+    TreasureChest chest(axe);
+    check(ok, chest.getType() == "Treasure" && chest.getName() == "Warrior's Axe");
+    check(ok, !chest.isFinished());
+
+    std::cout << "Type y to open the chest.\n";
+    chest.process(player);
+    check(ok, chest.isFinished());
+    check(ok, player.getAttackStrength() == 20); // 12 + 8 from the axe
+
+    TreasureChest chest2(axe);
+    check(ok, chest2.attemptUnlock(40)); // 60% + 40% = always opens
+    return ok;
+}
+
+// ---------- ArtLoader.cpp ----------
+bool testArtLoader() {
+    bool ok = true;
+    check(ok, ArtLoader::getArtFileName("Combat", "Goblin") == "EnteringRoomHasGoblin.txt");
+    check(ok, ArtLoader::getArtFileName("Combat", "Boss") == "EnteringRoomHasDemon.txt");
+    check(ok, ArtLoader::getArtFileName("Treasure", "Health Potion") == "EnteringRoomHasTreasure.txt");
+    check(ok, ArtLoader::getArtFileName("Empty", "") == "EnteringRoomHasNothing.txt");
+    check(ok, ArtLoader::loadFromFile("EnteringRoomHasGoblin.txt") != "[Art file not found]\n");
+
+    Room room;
+    ArtLoader::showRoomArt(room);
+    return ok;
+}
+
+// ---------- Map.cpp ----------
+bool testMap() {
+    bool ok = true;
+    Map dungeon;
+    check(ok, dungeon.getCurrentFloor() == 2);
+    check(ok, dungeon.getCurrentRow() == 0 && dungeon.getCurrentCol() == 0);
+    check(ok, dungeon.getCurrentRoom().getEvent()->getType() == "Empty");
+
+    check(ok, !dungeon.moveUp());   // wall
+    check(ok, !dungeon.moveLeft()); // wall
+    check(ok, dungeon.moveDown() && dungeon.moveRight());
+    check(ok, dungeon.getCurrentRow() == 1 && dungeon.getCurrentCol() == 1);
+
+    dungeon.goBack();
+    check(ok, dungeon.getCurrentRow() == 1 && dungeon.getCurrentCol() == 0);
+
+    dungeon.climbStairs();
+    check(ok, dungeon.getCurrentFloor() == 1);
+    return ok;
+}
+
+int main() {
+    srand(1); // same random numbers every test run
+
+    // Run every test first, then print the results together at the end
+    bool playerOk        = testPlayer();
+    bool enemyOk         = testEnemy();
+    bool itemsOk         = testItems();
+    bool eventOk         = testEvent();
+    bool roomOk          = testRoom();
+    bool combatOk        = testCombat();
+    bool treasureChestOk = testTreasureChest();
+    bool artLoaderOk     = testArtLoader();
+    bool mapOk           = testMap();
+
+    std::cout << "\n========== Test Results ==========\n";
+    report("Player.cpp", playerOk);
+    report("Enemy.cpp", enemyOk);
+    report("Items.cpp", itemsOk);
+    report("Event.cpp", eventOk);
+    report("Room.cpp", roomOk);
+    report("Combat.cpp", combatOk);
+    report("TreasureChest.cpp", treasureChestOk);
+    report("ArtLoader.cpp", artLoaderOk);
+    report("Map.cpp", mapOk);
+    return 0;
 }

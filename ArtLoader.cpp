@@ -38,6 +38,7 @@ std::string ArtLoader::getArtFileName( const std::string& eventType, const std::
 }
 
 
+// shows the art that matches whats happening in current room
 
 void ArtLoader::showRoomArt(const Room& room) {
     std::string fileName;

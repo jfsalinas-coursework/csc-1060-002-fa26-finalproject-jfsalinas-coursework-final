@@ -3,7 +3,7 @@
 // Holds player class, it will be from 3 choices. It will also hold stats like HP, Attack Strength, Attack Accuracy, luck, and evasion.
 // Stats will be loaded from the data-Cstats.csv file. Player can heal, take damamge and get more stats from Items.
 
-#inndef PLAYER_H
+#ifndef PLAYER_H
 #define PLAYER_H
 
 #include <string>
@@ -15,7 +15,7 @@ private:
     int hp;
     int maxHp;
     int attackStrength;
-    int attackAccuracy // is a % chance to hit
+    int attackAccuracy; // is a % chance to hit
     int luck; // Used when trying to open chest
     int evasion; // % chance to dodge attacks
 
