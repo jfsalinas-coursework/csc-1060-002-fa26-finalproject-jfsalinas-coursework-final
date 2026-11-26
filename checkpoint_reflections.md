@@ -46,3 +46,9 @@ misname file caused art not to load for awhile
 2. What design decisions or changes did you make?
 didnt give myslef time to add menu
 
+## checkpoint-05: incorporate objects into program flow
+
+1. What challenges did you encounter?
+everything was working as intended
+
+2. What design decisions or changes did you make?
